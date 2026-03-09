@@ -1,0 +1,127 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Michroma">
+
+<style>    
+img {
+  border-radius: 5%;
+  -webkit-transition: -webkit-transform .5s ease-in-out;
+          transition:         transform .5s ease-in-out;
+}
+img:hover {
+  -webkit-transform: rotate(360deg) scale(1.0);
+          transform: rotate(360deg) scale(1.0);
+}
+.reloj {
+width: 200px; 
+height: 20px; 
+padding: 0px 0px; 
+border: 0px solid black; 
+font: bold 1.1em dotum, "Michroma", arial; text-align: center; color:#000000;
+letter-spacing: 2px;
+}  
+  .boton_personalizado{
+    text-decoration: none;
+    padding: 0px;
+    font-weight: 100;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #ffffff;
+    border-radius: 50%;
+    border: 0px;
+    display: inline;
+    width: 32px;
+    height: 32px;
+    outline:none;
+  }
+  .boton_personalizado:hover{
+    color: #1883ba;cursor:pointer;
+    background-color: #FFFFFF;
+  }
+</style>
+
+<div id="relojnumerico" class="reloj" onload="cargarReloj()" style='display:scroll; position:fixed; top:0px; left:0px;'>
+
+<!-- Acá mostraremos el reloj --> 
+</div>
+
+<!-- GOOGLE -->
+<br>
+<br> 
+<a href="https://mail.google.com/mail/" target="_top"><img src="https://image.ibb.co/h2wuP6/gmail.jpg" title="GMAIL"></a>
+ 
+&nbsp;&nbsp;&nbsp;
+<a href="https://keep.google.com/#home" target="_top"><img src="https://image.ibb.co/mTDkWm/keep.jpg" title="KEEP"></a>
+ 
+&nbsp;&nbsp;&nbsp;
+<a href="https://drive.google.com/drive/my-drive" target="_top"><img src="https://image.ibb.co/bQjQWm/drive.jpg" title="DRIVE"></a>
+ 
+&nbsp;&nbsp;
+<a href="https://onedrive.live.com/" target="_top"><img src="https://i.ibb.co/s6wT9Tn/onedrive.jpg" title="OneDrive"></a>
+
+&nbsp;&nbsp;&nbsp; 
+<a href="http://www.youtube.com" target="_top"><img src="https://image.ibb.co/fLE3HR/ytube.jpg" title="YOUTUBE"></a>
+
+&nbsp;&nbsp;&nbsp;
+<a href="https://maps.google.com/" target="_top"><img src="https://image.ibb.co/hfdxcR/gmap.jpg" title="GMAP"></a>
+&nbsp;&nbsp;&nbsp;
+
+ <audio src="https://c11.radioboss.fm:18071/stream" preload="none"></audio>
+<button id="boton" class="boton_personalizado">
+<img src="https://rllom.github.io/andromeda/wallpublic/logowall.png" width="32px" height="32px"  title="Radio Andromeda Play">
+</button>
+
+<script>
+var v = document.getElementsByTagName("audio")[0];
+ var sound = false;
+ var boton = document.getElementById("boton");
+ boton.addEventListener("click", function(){
+	if (!sound) {
+		v.play();
+		this.innerHTML = '<img id="rbcloud_cover15531" src="https://c11.radioboss.fm/w/artwork/71.png" width="100px" height="100px" title="Sonando" style="display:scroll; position:fixed;top:0px; right:0px">';
+		sound = true;
+                console.log(this);
+	} else {
+		v.pause();
+                this.innerHTML = '<img src="https://rllom.github.io/andromeda/wallpublic/logowall.png" width="32px" height="32px" Title="Radio Andromeda Play">';
+		sound = false;
+                }
+ });
+
+function updateImage() {
+  const image = document.getElementById('rbcloud_cover15531');
+  const timestamp = new Date().getTime();
+  image.src = `https://c11.radioboss.fm/w/artwork/71.png?${timestamp}`;
+}
+setInterval(updateImage, 10000);
+
+function cargarReloj(){
+    // Haciendo uso del objeto Date() obtenemos la hora, minuto y segundo 
+    var fechahora = new Date();
+    var hora = fechahora.getHours(); 
+    var minuto = fechahora.getMinutes(); 
+    var segundo = fechahora.getSeconds(); 
+    // Variable meridiano con el valor 'AM' 
+    var meridiano = "am";
+    // Si la hora es igual a 0, declaramos la hora con el valor 12 
+    if(hora == 0){
+        hora = 12;
+    }
+    // Si la hora es mayor a 12, restamos la hora - 12 y mostramos la variable meridiano con el valor 'PM' 
+    if(hora > 12) {
+        hora = hora - 12;
+        // Variable meridiano con el valor 'PM' 
+        meridiano = "pm";
+     }
+    // Formateamos los ceros '0' del reloj 
+    hora = (hora < 10) ? "0" + hora : hora;
+    minuto = (minuto < 10) ? "0" + minuto : minuto;
+    segundo = (segundo < 10) ? "0" + segundo : segundo;
+    // Enviamos la hora a la vista HTML 
+    var tiempo = hora + ":" + minuto + ":" + segundo + " " + meridiano;    
+    document.getElementById("relojnumerico").innerText = tiempo;
+    document.getElementById("relojnumerico").textContent = tiempo;
+    // Cargamos el reloj a los 500 milisegundos 
+    setTimeout(cargarReloj, 500);
+ }
+// Ejecutamos la función 'CargarReloj' 
+cargarReloj();
+</script>
